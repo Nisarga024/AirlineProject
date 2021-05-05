@@ -59,6 +59,9 @@ System.out.println("Department Servlet...service()....");
 		try {
 			ddi.addDepartment(deptObj);
 			pw.println("<h4>Department is added to the database</h4>");
+			pw.println("<h4>Department is added to the database</h4>");
+			pw.println("<h4>Department is added to the database</h4>");
+			pw.println("<h4>Department is added to the database</h4>");
 		}
 		catch(DepartmentAlreadyExistException e) {
 			pw.println("<h4>Department add issue: "+e.getMessage()+"</h4>");
