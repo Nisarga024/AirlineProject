@@ -1,0 +1,30 @@
+package com.test;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.service.CustomerService;
+
+
+@ExtendWith(SpringExtension.class)
+	@ContextConfiguration(locations = "classpath:mySpring.xml")
+	public class AopTest {
+		@Autowired
+		CustomerService custs;
+		
+		@Test
+		public void testBefore() {
+		
+	custs.applyForChequeBook(2);	
+	custs.applyForCreditCard("abcd", 12345);
+custs.balance(2);
+			
+			
+		}
+	}
+
+	
+
