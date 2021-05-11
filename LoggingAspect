@@ -1,0 +1,13 @@
+package com.aop;
+
+
+import org.aspectj.lang.JoinPoint;
+
+public class LoggingAspect {
+
+	public void log(JoinPoint jp) {
+		System.out.println("Common log function"+jp);
+		
+	}
+	
+}
