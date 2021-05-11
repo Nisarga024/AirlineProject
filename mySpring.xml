@@ -1,0 +1,74 @@
+?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx">
+
+<context:component-scan base-package="com"/>
+    <!-- bean definitions here -->
+	<!--<bean id="myCar" class="com.vehicle.Car" scope="prototype">
+		<constructor-arg ref="myEng"/>	
+	</bean>
+
+	<bean id="myEng" class="com.vehicle.Engine">
+		<constructor-arg ref="myPst"/>
+	</bean>
+
+	
+	
+	
+	  -->
+	
+	
+	<!-- <bean id="myCar1" class="com.vehicle.Car" scope="prototype">
+		<constructor-arg ref="myEng"/>	
+	</bean> -->
+	
+	<!--<bean id="myCar2" class="com.vehicle.Car" scope="prototype">
+		<property name="model" value="Honda"></property>
+		<property name="owner" value="Nisarga"></property>
+	</bean> -->
+<!--	
+	<bean id="myEng" class="com.vehicle.Engine">
+		<constructor-arg ref="myPst"/>
+	</bean>
+	
+	<bean id="myPst" class="com.vehicle.Piston"></bean> -->
+	
+	<!--  <bean id="fe" class="com.vehicle.FlightEnquiry">
+		<property name="myDataSource" ref="myDb"></property>
+	</bean>//directly declared in class as repository("fe")
+	-->
+	 <aop:aspectj-autoproxy />
+	<bean id="customerService" class="com.service.CustomerServiceImpl" />
+    
+    <bean id="loggingAspect" class="com.aop.LoggingAspect" />
+    
+    <aop:config>
+        <aop:pointcut id="pointcut1" expression="execution(public * apply*(..))"  />
+        <aop:aspect ref="loggingAspect">
+            <aop:before method="log" pointcut-ref="pointcut1" />
+        </aop:aspect>
+    </aop:config>    
+	
+	
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="myDb"/>
+	</bean>
+	
+	<bean id="myDb" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:ORCL"></property>
+		<property name="username" value="system"></property>
+		<property name="password" value="nisarga"></property>
+	</bean>
+	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"/>
+	</bean>
+	<tx:annotation-driven transaction-manager="txManager" />
+</beans>
+
